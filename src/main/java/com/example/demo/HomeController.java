@@ -11,9 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class HomeController {
+
+    @Autowired
+    DirectorRepository directorRepository;
 
     @Autowired
     CloudinaryConfig cloudc;
@@ -25,7 +30,9 @@ public class HomeController {
     RoleRepository roleRepository;
 
     @RequestMapping("/")
-    public String index(){
+    public String index(Model model){
+        // Grab all the directors from the Database and display them here
+        model.addAttribute("directors", directorRepository.findAll());
         return "index";
     }
 

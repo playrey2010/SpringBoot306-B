@@ -8,10 +8,17 @@
     <title>Index Page</title>
 </head>
 <body>
-<h2>Welcome Page</h2>
-<p th:if="${message}">[[${message}]]</p>
-<a th:href="@{/admin}">Admin Page</a>
-<br>
+<h1>Director list</h1>
+<div th:each="director: ${directors}">
+    <h2 th:text="${director.name}"></h2>
+    <h6 th:inline="text">specializing in [[${director.genre}]]</h6>
+    <ul>
+        <th:block th:each="movie: ${director.movies}">
+            <li th:inline="text"><b>[[${movie.title}]]</b> released in [[${movie.year}]]</li>
+        </th:block>
+    </ul>
+</div>
+
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Logout">
 </form>
