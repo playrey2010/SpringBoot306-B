@@ -1,0 +1,12 @@
+
+:root {
+    --error-message: red;
+}
+
+#user-error-message {
+    color: var(--error-message);
+}
+
+#password-error-message {
+    color: var(--error-message);
+}
