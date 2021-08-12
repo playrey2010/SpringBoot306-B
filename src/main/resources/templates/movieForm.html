@@ -8,8 +8,9 @@
     <title>Movie Form</title>
 </head>
 <body>
-<form th:action="@{/processMovie}" th:object="${movie}" method="post">
+<form th:action="@{/processMovie}" th:object="${movie}" method="post" enctype="multipart/form-data">
     <input type="hidden" th:field="*{id}">
+    <input type="hidden" th:field="*{photo}">
     Title: <input type="text" th:field="*{title}">
     <br>
     Year: <input type="number" th:field="*{year}">
@@ -20,6 +21,7 @@
         <option th:each="director: ${directors}" th:value="${director.id}" th:text="${director.name}"></option>
     </select>
     <br>
+    Photo: <input type="file" name="moviePicture">
     <input type="submit" value="Submit">
 </form>
 

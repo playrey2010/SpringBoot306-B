@@ -17,6 +17,7 @@
     <ul>
         <th:block th:each="movie: ${director.movies}">
             <li th:inline="text"><b>[[${movie.title}]]</b> released in [[${movie.year}]]</li>
+            <img th:src="${movie.photo}" width="200" height="200">
             <li><a th:href="@{/updateMovie/{id}(id=${movie.id})}">Update Movie</a></li>
             <li><a th:href="@{/deleteMovie/{id}(id=${movie.id})}">Delete Movie</a></li>
         </th:block>

@@ -18,6 +18,8 @@ public class Movie {
     @JoinColumn(name = "director_id")
     private Director director;
 
+    private String photo;
+
     public long getId() {
         return id;
     }
@@ -56,5 +58,13 @@ public class Movie {
 
     public void setDirector(Director director) {
         this.director = director;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

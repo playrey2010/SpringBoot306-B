@@ -10,6 +10,7 @@
 <body>
 <form th:action="@{/processDirector}" th:object="${director}" method="post">
     <input type="hidden" th:field="*{id}">
+    <input type="hidden" th:field="*{movies}">
     Name: <input type="text" th:field="*{name}">
     <br>
     Genre: <input type="text" th:field="*{genre}">

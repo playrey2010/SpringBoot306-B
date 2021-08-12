@@ -1,14 +1,18 @@
 package com.example.demo;
 
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @Controller
@@ -81,7 +85,22 @@ public class HomeController {
     }
 
     @PostMapping("/processMovie")
-    public String processMovie(@ModelAttribute Movie movie){
+    public String processMovie(@ModelAttribute Movie movie,
+                               @RequestParam(name = "moviePicture")MultipartFile file){
+
+
+        if (file.isEmpty() && (movie.getPhoto() == null || movie.getPhoto().isEmpty())){
+            movie.setPhoto("https://res.cloudinary.com/playrey/image/upload/v1628705378/Transparent_flag_with_question_mark_q6fawu.png");
+        } else if (!file.isEmpty()){
+            try {
+                Map uploadResult = cloudc.upload(file.getBytes(),
+                        ObjectUtils.asMap("resourcetype", "auto"));
+                movie.setPhoto(uploadResult.get("url").toString());
+            } catch (IOException e){
+                e.printStackTrace();
+                return "redirect:/addMovie";
+            }
+        }
         movieRepository.save(movie);
         return "redirect:/";
     }
